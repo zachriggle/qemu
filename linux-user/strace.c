@@ -158,7 +158,9 @@ print_fdset(int n, abi_ulong target_fds_addr)
     gemu_log("[");
     if( target_fds_addr ) {
         abi_long *target_fds;
-
+        dprintf(1, "%#lx * (%#lx / %i + 1 ) == %#lx",
+                    sizeof(*target_fds), n, TARGET_ABI_BITS,
+                    sizeof(*target_fds)*(n / TARGET_ABI_BITS + 1));
         target_fds = lock_user(VERIFY_READ,
                                target_fds_addr,
                                sizeof(*target_fds)*(n / TARGET_ABI_BITS + 1),
